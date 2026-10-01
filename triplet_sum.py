@@ -33,10 +33,42 @@ def triplet_sum_brute_force(nums: List[int]) -> List[List[int]]:
 # Without triplet O(n) from the sort algo
 # With triplet result, n anchor need the worst case of n/2 pair which is roughly n in
 # big O term. Therefore the space is O(n^2)
+
+# MISTAKES:
+# Use wrong arrays (unsorted one)
+# Use if for skipping (shoule be while)
+
 def triplet_sum(nums: List[int]) -> List[List[int]]:
     if len(nums) < 3:
         return []
+    
+    results = [] 
+    
     sortedNums = sorted(nums)
     
-    for index, a in iterate(sortedNums):
+    for index, a in enumerate(sortedNums):
+        # since we already sort the list and there could be a case where three 0s -> stop and no == 0
+        if a > 0:
+            break
+        # next anchor is the same as previous -> skip
+        if index > 0 and sortedNums[index - 1] == sortedNums[index]:
+            continue
         
+        left = index + 1
+        right = len(sortedNums) - 1
+        
+        while left < right:
+            sum = a + sortedNums[left] + sortedNums[right]
+            if sum == 0:
+                results.append([a, sortedNums[left], sortedNums[right]])
+                left += 1
+                # next b is the same as previous -> skip
+                # You used to use if here, must use while
+                while sortedNums[left] == sortedNums[left - 1]:
+                    left += 1
+            elif sum > 0:
+                right -= 1
+            elif sum < 0:
+                left += 1
+        
+    return results 
