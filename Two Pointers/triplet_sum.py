@@ -37,6 +37,7 @@ def triplet_sum_brute_force(nums: List[int]) -> List[List[int]]:
 # MISTAKES:
 # Use wrong arrays (unsorted one)
 # Use if for skipping (shoule be while)
+# Does not move both pointers when a triplet found
 
 def triplet_sum(nums: List[int]) -> List[List[int]]:
     if len(nums) < 3:
@@ -62,9 +63,10 @@ def triplet_sum(nums: List[int]) -> List[List[int]]:
             if sum == 0:
                 results.append([a, sortedNums[left], sortedNums[right]])
                 left += 1
+                right -= 1
                 # next b is the same as previous -> skip
                 # You used to use if here, must use while
-                while sortedNums[left] == sortedNums[left - 1]:
+                while left < right and sortedNums[left] == sortedNums[left - 1]:
                     left += 1
             elif sum > 0:
                 right -= 1
@@ -72,3 +74,8 @@ def triplet_sum(nums: List[int]) -> List[List[int]]:
                 left += 1
         
     return results 
+
+print(triplet_sum([]))
+print(triplet_sum([0]))
+print(triplet_sum([1, -1]))
+print(triplet_sum([0, 0, 0]))
