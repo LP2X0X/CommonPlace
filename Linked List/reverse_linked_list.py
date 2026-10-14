@@ -26,11 +26,14 @@ class Node:
 # => Result null <- 1 <-- 2 <-- 3 
 # => Stop when cur = null
 
-def reverse_linked_list (start: Node) -> Node:
-    if (start.next == None): return start
+
+# TIME: O(n)
+# SPACE: O(1)
+def reverse_linked_list (head: Node) -> Node:
+    if (head.next == None): return head
     
     prv_pnt = None
-    cur_pnt = start
+    cur_pnt = head
     
     while cur_pnt != None:
         # Don't mess up this order
@@ -41,3 +44,32 @@ def reverse_linked_list (start: Node) -> Node:
     
     return prv_pnt
     
+    
+# RECURSION VERSION
+# The trick is understanding that recursion defers work until it hits the base case.
+# => Imagine working from the base case up
+# Usually the structure of a recursive function will be:
+#   (1) Base check logic
+#   (2) Recursive call
+#   (3) Logic after recursive call return
+
+# OBSERVATION: 
+# For example, 1 --> 2 --> 3 --> null
+# KEY: We need the new HEAD (which is the end of the original list) returned (2)
+# KEY: Base case? If cur.next = null then return cur. What happen if the tree contain no element? cur = null => return cur => if cur or cur.next = null (1)
+# What happen when recursive call return? (3) Now 2 --> 3. 3 is returned and we are at head == 2 level. 
+# => head.next.next = head (which roughly translate to 3.next = 2) so 2 <--> 3
+# => head.next = null (now remove the point from 2 to 3) so 2 --> 3
+
+def recursive_reverse_linked_list (head: Node) -> Node:
+    # Base case
+    if head == None or head.next == None:
+        return head
+
+    # Recursive call
+    new_head = recursive_reverse_linked_list(head.next) # transporting the new head to the start of the call stack 
+
+    # Normal case
+    head.next.next = head
+    head.next = None
+    return new_head # transporting the new head 
