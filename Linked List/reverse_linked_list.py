@@ -1,7 +1,4 @@
-class Node:
-    def __init__(self, value: int, next: Node):
-        self.value = value
-        self.next = next
+from node import Node
 
 # OBSERVATION:
 # For example we need to reverse this list: 1 -> 2 -> 3
