@@ -26,6 +26,8 @@ from node import Node
 
 # EDGE CASE: K > than number of nodes
 
+# TIME: O(n)
+# SPACE: O(1)
 def removed_kth_last_node_from_linked_list (head: Node, k: int) -> Node:
     dummy = Node()
     dummy.next = head
