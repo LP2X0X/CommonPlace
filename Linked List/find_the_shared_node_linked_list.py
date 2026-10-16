@@ -20,7 +20,7 @@ from node import Node
 # When do we stop? When both next head is null
 
 # TIME: O(m + n)
-# SPACE: 
+# SPACE: O(1) constant var created
 def find_the_shared_node_linked_list_better (head_A: Node, head_B: Node) -> Node:
     traverse_A = head_A
     traverse_B = head_B
