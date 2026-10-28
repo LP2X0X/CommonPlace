@@ -32,7 +32,6 @@ def brute_force_linked_list_loop (head: Node) -> bool:
 
 # TIME: O(n)
 # Space: O(1)
-
 def linked_list_loop(head: Node) -> bool:
     slowPointer = head
     fastPointer = head
